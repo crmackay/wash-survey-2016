@@ -1,0 +1,15 @@
+CACHE MANIFEST
+
+# version 0.0.3
+
+CACHE:
+
+javascript/form-controller.js
+javascript/form-handlers.js
+javascript/outline.js
+javascript/views.js
+javascript/ajax.js
+styles/styles.css
+
+NETWORK:
+*

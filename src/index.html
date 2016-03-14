@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html manifest="offline.appcache">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Form</title>
+    <link rel=stylesheet type="text/css" href="styles/styles.css"/>
+</head>
+<body>
+    <div id="main">
+        <div id="menu-bar">
+            <div class="menu-item">
+                <button id="addRecord">	<strong>&#43;</strong> Add</button>
+            </div>
+            <div class="menu-item">
+                <a href="allRecords" target="_blank"><button id="seeAll">See all</button></a>
+            </div>
+            <div class="menu-item upload">
+                <button id="btn-upload">&#8682; Upload</button>
+                <span id="badge"></span>
+            </div>
+        </div>
+
+        <div id="data-container">
+            Entered data that has not yet been uploaded to the server:
+            <div id="saved-data-table">
+            </div>
+        </div>
+    </div>
+    <div id="entry-form-modal" class="hide modal">
+        <div class="close-button">&#x2715;</div>
+        <form id="entry-form" method="post">
+
+            <!-- Question surveyid -->
+            <div class="question">
+                <h1>Survey ID #:</h1>
+                <input id="surveyid" type="number" min="0" step="1">
+            </div>
+
+            <!-- Question surveyor-name -->
+            <div class="question">
+                <h1>Name of Surveyor</h1>
+                <input id="surveyor-name" type="text">
+            </div>
+
+            <!-- Question surveyor-name -->
+            <div class="question">
+                <h1>Batey Name</h1>
+                <input id="batey" type="text">
+            </div>
+
+            <!-- Question house-number -->
+            <div class="question">
+                <h1>House #:</h1>
+                <input id="house-number" type="text">
+            </div>
+
+            <!-- Question 1 and 1-other -->
+            <div class="question">
+                <h1>Q1. What is the main source of drinking water for members of your household?</h1>
+                <select id="q1">
+                    <option value="">No answer</option>
+                    <option value="pipe-dwelling">a. Piped water into dwelling</option>
+                        <!-- → Go to Question 4  (please skip questions 2 & 3) -->
+                    <option value="pipe-plot">b. Piped water to yard/plot</option>
+                        <!-- → Go to Question 4    (please skip questions 2 & 3) -->
+                    <option value="pipe-public">c. Public tap/standpipe</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="well-tube">d. Tubewell/borehole</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="well-dug-protected">e. Protected dug well</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="well-dug-unprotected">f. Unprotected dug well</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="spring-protected">g. Protected spring</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="spring-unprotected">h. Unprotected spring</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="rainwater">i. Rainwater collection</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="bottle">j. Bottled water</option>
+                         <!-- → Go to Question 1a below -->
+                    <option value="cart">k. Cart with small tank/drum</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="tanker-truck">l. Tanker-truck</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="surface">m. Surface water (river, dam, lake, pond, stream, canal, irrigation channels)</option>
+                        <!-- → Go to Question 2 -->
+                    <option value="other">n. Other (specify)</option>
+                        <!-- → Go to Question 2 -->
+                </select>
+                <div class="question">
+                    <input type="text" id="q1-other" placeholder="other..."></input>
+                </div>
+            </div>
+
+            <!-- Question 1a and 1a-other -->
+            <div class="question">
+                <h1>Q1a. If response is “Bottled water”: What is the main source of water used by your household for other purposes, such as cooking and handwashing?</h1>
+                <select id="q1a">
+                    <option value="">No answer</option>
+                    <option value="pipe-dwelling">a. Piped water into dwelling</option>
+                        <!-- → Go to Question 4  (please skip questions 2 & 3) -->
+                    <option value="pipe-plot">b. Piped water to yard/plot</option>
+                        <!-- → Go to Question 4    (please skip questions 2 & 3) -->
+                    <option value="pipe-public">c. Public tap/standpipe</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="well-tube">d. Tubewell/borehole</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="well-dug-protected">e. Protected dug well</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="well-dug-unprotected">f. Unprotected dug well</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="spring-protected">g. Protected spring</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="spring-unprotected">h. Unprotected spring</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="rainwater">i. Rainwater collection</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="bottle">j. Bottled water</option>
+                         <!-- → Go to Question 1a below -->
+                    <option value="cart">k. Cart with small tank/drum</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="tanker-truck">l. Tanker-truck</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="surface">m. Surface water (river, dam, lake, pond, stream, canal, irrigation channels)</option>
+                        <!-- → Go to Question 2 -->
+                    <option value="other">n. Other (specify)</option>
+                        <!-- → Go to Question 2 -->
+                </select>
+                <div class="question">
+                    <input id="q1a-other" type="text" placeholder="other..."></input>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question">
+                <h1>Q2. How long does it take to go there, get water, and come back?</h1>
+                <div class="radio-group>">
+                    <input id="q2-radio-a" type="radio" name="q2" value="travel">
+                        <!-- → Go to Question 3 -->
+
+                    <label for="q2-radio-a">a. Travel time in, minutes:</label>
+
+                        <input type="number" name="travel-mins" min="0" step="1" id="q2-mins">
+                </div>
+                <div class="radio-group">
+
+                    <input id="q2-radio-b" type="radio" name="q2" value="on-premisis">
+                        <!-- → Go to Question 4 (Please skip question 3) -->
+                    <label for="q2-radio-b">b. Water on premises</label>
+                </div>
+                <div class="radio-group">
+                    <input id="q2-radio-c" type="radio" name="q2" value="does-not-know">
+                        <!-- → Go to Question 3 -->
+                    <label for="q2-radio-c">c. Don’t know</label>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question">
+                <h1>Q3.	Who usually goes to this source to fetch the water for your household? (Probe: Is this person under age 15 years? What sex? Select the code that best describes this person.)</h1>
+                <div class="radio-group">
+
+                    <input id="q3-radio-a" type="radio" name="q3" value="adult-female">
+                        <!-- → Go to Question 4 -->
+                    <label for="q2-radio-b">a. Adult woman</label>
+                </div>
+                <div class="radio-group">
+                    <input id="q3-radio-b" type="radio" name="q3" value="adult-male">
+                        <!-- → Go to Question 4 -->
+                    <label for="q3-radio-b">b. Adult man</label>
+                </div>
+                <div class="radio-group">
+                    <input id="q3-radio-c" type="radio" name="q3" value="child-female">
+                        <!-- → Go to Question 4 -->
+                    <label for="q3-radio-c">c. Female child (under 15 years)</label>
+                </div>
+                <div class="radio-group">
+                    <input id="q3-radio-d" type="radio" name="q3" value="child-male">
+                        <!-- → Go to Question 4 -->
+                    <label for="q3-radio-d">d. Male child (under 15 years)</label>
+                </div>
+
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question">
+                <h1>Q4.	Do you treat your water in any way to make it safer to drink?</h1>
+                <div class="radio-group">
+                    <input id="q4-radio-a" type="radio" name="q4" value="yes">
+                        <!-- → Go to Question 5 -->
+                    <label for="q4-radio-a">a. Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input id="q4-radio-b" type="radio" name="q4" value="no">
+                        <!-- → Go to Question 6  (please skip question 5)  -->
+                    <label for="q4-radio-b">b. No</label>
+                </div>
+                <div class="radio-group">
+                    <input id="q4-radio-c" type="radio" name="q4" value="does-not-know">
+                        <!-- → Go to Question 6  (please skip question 5) -->
+                    <label for="q4-radio-c">c. Don't know</label>
+                </div>
+            </div>
+
+            <!-- Question 5 and 5-other -->
+            <div class="question">
+                <h1>Q5. What do you usually do to the water to make it safer to drink? (Anything else? Select <strong>all</strong> items mentioned by the respondent below.)</h1>
+                <!--TODO fix responses here:  -->
+                <div class="check-group">
+                    <input id="q5-checkbox-a" type="checkbox" name="q5" value="boil">
+                    <label for="q5-checkbox-a">a. Boil</label>
+                </div>
+                <div class="check-group">
+                    <input id="q5-checkbox-b" type="checkbox" name="q5" value="chlorine">
+                    <label for="q5-checkbox-b">b. Add bleach/chlorine</label>
+                </div>
+                <div class="check-group">
+                    <input id="q5-checkbox-c" type="checkbox" name="q5" value="strain-cloth">
+                    <label for="q5-checkbox-c">c. Strain it through a cloth</label>
+                </div>
+                <div class="check-group">
+                    <input id="q5-checkbox-d" type="checkbox" name="q5" value="filter">
+                    <label for="q5-checkbox-d">d. Use a water filter (ceramic, sand, composite, etc.)</label>
+                </div>
+                <div class="check-group">
+                    <input id="q5-checkbox-e" type="checkbox" name="q5" value="solar">
+                    <label for="q5-checkbox-e">e. Solar disinfection</label>
+                </div>
+                <div class="check-group">
+                    <input id="q5-checkbox-f" type="checkbox" name="q5" value="stand-settle">
+                    <label for="q5-checkbox-f">f. Let it stand and settle</label>
+                </div>
+                <div class="check-group">
+                    <input id="q5-checkbox-g" type="checkbox" name="q5" value="other">
+                    <label for="q5-checkbox-g">g. Other (specify)</label>
+                    <input type="text" id="q5-other" placeholder="other..."></input>
+
+                </div>
+                <div class="check-group">
+                    <input id="q5-checkbox-h" type="checkbox" name="q5" value="does-not-know">
+                    <label for="q5-checkbox-h">h. Don’t know</label>
+                </div>
+
+                    <!-- a.	Boil → Go to Question 6
+                    b.	Add bleach/chlorine → Go to Question 6
+                    c.	Strain it through a cloth → Go to Question 6
+                    d.	Use a water filter (ceramic, sand, composite, etc.) → Go to Question 6
+                    e.	Solar disinfection → Go to Question 6
+                    f.	Let it stand and settle → Go to Question 6
+                    g.	Other (specify) → Go to Question 6
+                    h.	Don’t know → Go to Question 6 -->
+
+            </div>
+
+            <div class="question">
+                <h1>Q6. What kind of toilet facility do members of your household usually use? (If “flush” or “pour flush” probe: Where does it flush to?)</h1>
+                <select id="q6">
+                    <option value="">No answer</option>
+                    <option value="flush-sewer">a.1. Flush/pour flush to: Piped sewer system</option>
+                        <!-- → Go to Question 4  (please skip questions 2 & 3) -->
+                    <option value="flush-septic">a.2. Flush/pour flush to: Septic tank</option>
+                        <!-- → Go to Question 4    (please skip questions 2 & 3) -->
+                    <option value="flush-pit">a.3. Flush/pour flush to: Pit latrine</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="flush-elsewhere">a.4. Flush/pour flush to: Elsewhere</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="flush-unknown">a.5. Flush/pour flush to: Unknown place/not sure/DK where</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="vip">b. Ventilated improved pit latrine (VIP)</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="pit-slab">c. Pit latrine with slab</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="pit-no-slab">d. Pit latrine without slab/open pit</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="compost">e. Composting toilet</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="bucket">f. Bucket</option>
+                         <!-- → Go to Question 1a below -->
+                    <option value="hanging">g. Hanging toilet/hanging latrine</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="bush">h. No facilities or bush or field</option>
+                         <!-- → Go to Question 2 -->
+                    <option value="other">i. Other (specify)</option>
+                        <!-- → Go to Question 2 -->
+                </select>
+                <div class="question">
+                    <input type="text" id="q6-other" placeholder="other..."></input>
+                </div>
+                <!--
+                a.	Flush/pour flush to:
+                i.	Piped sewer system → Go to Question 7
+                ii.	Septic tank → Go to Question 7
+                iii.	Pit latrine → Go to Question 7
+                iv.	Elsewhere → Go to Question 7
+                v.	Unknown place/not sure/DK where → Go to Question 7
+                b.	Ventilated improved pit latrine (VIP) → Go to Question 7
+                c.	Pit latrine with slab → Go to Question 7
+                d.	Pit latrine without slab/open pit → Go to Question 7
+                e.	Composting toilet → Go to Question 7
+                f.	Bucket → Go to Question 7
+                g.	Hanging toilet/hanging latrine → Go to Question 7
+                h.	No facilities or bush or field → Go to Question 9  (please skip question 7 & 8)
+                i.	Other (specify) → ____________________________________Go to Question 7 -->
+
+            </div>
+
+            <div class="question">
+                <h1>Q7.	Do you share this facility with other households?</h1>
+                <div class="radio-group">
+                    <input id="q7-radio-a" type="radio" name="q7" value="yes">
+                        <!-- → Go to Question 5 -->
+                    <label for="q7-radio-a">a. Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input id="q7-radio-a" type="radio" name="q7" value="no">
+                        <!-- → Go to Question 5 -->
+                    <label for="q7-radio-b">b. No</label>
+                </div>
+
+                <!-- a.	Yes → Go to Question 8
+                b.	No → Go to Question 9 (please skip question 8) -->
+            </div>
+
+            <div class="question">
+                <h1>Q8.	How many households use this toilet facility?</h1>
+                <div class="radio-group">
+                    <input id="q8-radio-a" type="radio" name="q8" value="share">
+                        <!-- → Go to Question 5 -->
+                    <label for="q8-radio-a">a. How many other households share this toilet?(Free text, enter the #)</label>
+                    <input type="text" id="q8-number" placeholder="number of houses..">
+                </div>
+                <div class="radio-group">
+                    <input id="q8-radio-b" type="radio" name="q8" value="public">
+                        <!-- → Go to Question 5 -->
+                    <label for="q8-radio-b">b.	Can any member of the public use this toilet? </label>
+                </div>
+                <div class="radio-group">
+                    <input id="q8-radio-c" type="radio" name="q8" value="does-not-know">
+                        <!-- → Go to Question 5 -->
+                    <label for="q8-radio-c">c. Don't Know</label>
+                </div>
+
+                    <!-- a.	How many other households share this toilet? (Free text, enter the #_____)→ Go to Question 9
+                    b.	Can any member of the public use this toilet?  → Go to Question 9
+                    c.	Don’t Know  → Go to Question 9
+                    Comments__________________________________________________ Go to Question 9
+                     -->
+
+
+            </div>
+
+            <div class="question">
+                <h1>Q9. The last time [name of youngest child] passed stools, what was done to dispose of the stools?</h1>
+                <div class="radio-group">
+                    <input id="q9-radio-a" type="radio" name="q9" value="child-latrine">
+                        <!-- → Go to Question 5 -->
+                    <label for="q9-radio-a">a. Child used toilet/latrine</label>
+                </div>
+                <div class="radio-group">
+                    <input id="q9-radio-b" type="radio" name="q9" value="put-latrine">
+                        <!-- → Go to Question 5 -->
+                    <label for="q9-radio-b">b. Put/rinsed into toilet or latrine</label>
+                </div>
+                <div class="radio-group">
+                    <input id="q9-radio-c" type="radio" name="q9" value="put-ditch">
+                        <!-- → Go to Question 5 -->
+                    <label for="q9-radio-c">c. Put/rinsed into drain or ditch</label>
+                </div>
+                <div class="radio-group">
+                    <input id="q9-radio-d" type="radio" name="q9" value="garbage">
+                        <!-- → Go to Question 5 -->
+                    <label for="q9-radio-d">d. Thrown into garbage</label>
+                </div>
+                <div class="radio-group">
+                    <input id="q9-radio-e" type="radio" name="q9" value="buried">
+                        <!-- → Go to Question 5 -->
+                    <label for="q9-radio-e">e.	Buried </label>
+                </div>
+                <div class="radio-group">
+                    <input id="q9-radio-f" type="radio" name="q9" value="other">
+                        <!-- → Go to Question 5 -->
+                    <label for="q9-radio-f">f. Other (specify)</label>
+                    <input type="text" id="q9-other" placeholder="other..."></input>
+                </div>
+                <div class="radio-group">
+                    <input id="q9-radio-g" type="radio" name="q9" value="does-not-know">
+                        <!-- → Go to Question 5 -->
+                    <label for="q9-radio-g">g. Don’t know</label>
+                </div>
+                <div class="radio-group">
+                    <input id="q9-radio-h" type="radio" name="q9" value="left-in-open">
+                        <!-- → Go to Question 5 -->
+                    <label for="q9-radio-h">h. Left in the open</label>
+                </div>
+                    <!-- a.	Child used toilet/latrine  → Go to Question 10
+                    b.	Put/rinsed into toilet or latrine → Go to Question 10
+                    c.	Put/rinsed into drain or ditch → Go to Question 10
+                    d.	Thrown into garbage → Go to Question 10
+                    e.	Buried Left in the open → Go to Question 10
+                    f.	Other (specify___________________________________________) → Go to Question 10
+                    g.	Don’t know → Go to Question 10 -->
+            </div>
+
+            <div class="question">
+                <h1>Q10. Do you use a water filter in your household?</h1>
+                <div class="radio-group">
+                    <input id="q10-radio-a" type="radio" name="q10" value="Yes">
+                        <!-- → Go to Question 5 -->
+                    <label for="q10-radio-a">a. Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input id="q10-radio-b" type="radio" name="q10" value="No">
+                        <!-- → Go to Question 5 -->
+                    <label for="q10-radio-b">b. No</label>
+                </div>
+                <!-- a.	Yes   (please skip question 10a)
+                b.	No → Go to Question 10a
+                 -->
+
+            </div>
+
+            <div class="question">
+                <h1>Q10a. Why don’t you use a water filter in your household?</h1>
+                    <div class="radio-group">
+                        <input id="q10a-radio-a" type="radio" name="q10a" value="not-available">
+                            <!-- → Go to Question 5 -->
+                        <label for="q10a-radio-a">a. There are no filters available on this batey</label>
+                    </div>
+                    <div class="radio-group">
+                        <input id="q10a-radio-b" type="radio" name="q10a" value="difficult-use">
+                            <!-- → Go to Question 5 -->
+                        <label for="q10a-radio-b">b. The filters are difficult to use</label>
+                    </div>
+                    <div class="radio-group">
+                        <input id="q10a-radio-c" type="radio" name="q10a" value="bad-taste">
+                            <!-- → Go to Question 5 -->
+                        <label for="q10a-radio-c">c. The water from the filter tastes bad</label>
+                    </div>
+                    <div class="radio-group">
+                        <input id="q10a-radio-d" type="radio" name="q10a" value="other">
+                            <!-- → Go to Question 5 -->
+                        <label for="q10a-radio-d">d. Other (specify)</label>
+                        <input type="text" id="q10a-other" placeholder="other..."></input>
+                    </div>
+                    <!-- a.	There are no filters available on this batey
+                    b.	The filters are difficult to use
+                    c.	The water from the filter tastes bad
+                    d.	Other (specify) -->
+
+            </div>
+
+            <div class="question">
+                <h1>Please note any further comments or observations below:</h1>
+                <textarea id="comments" rows="5" cols="50"></textarea>
+            </div>
+
+        </form>
+        <button id="entry-form-save">Save</button>
+    </div>
+    <div id="upload-modal" class="hide modal">
+        <div class="close-button">&#x2715;</div>
+            <p>data is being uploaded...</p>
+        </form>
+
+    </div>
+    <div id="login-modal" class="hide modal">
+        <div class="close-button">&#x2715;</div>
+        <form id="login-form">
+            <p>you are not logged in.</p>
+            <p>please provide a user name and password</p>
+            <p>Username: <input type="text" name="username"></p>
+            <p>Password: <input type="password" name="password"></p>
+            <div id="testing-login"></div>
+        </form>
+        <button id="submit-login"/>Log-In</button>
+
+    </div>
+
+    <div id="dimmer" class="hide"></div>
+    <script src="javascript/outline.js"></script>
+    <script src="javascript/form-handlers.js"></script>
+    <script src="javascript/form-controller.js"></script>
+    <script src="javascript/views.js"></script>
+    <script src="javascript/ajax.js"></script>
+
+</body>
+</html>
