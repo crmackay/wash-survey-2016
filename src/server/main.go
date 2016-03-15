@@ -14,11 +14,11 @@ func main() {
 	http.HandleFunc("/login", loginHandler)
 	http.HandleFunc("/save", saveHandler)
 	http.HandleFunc("/all", allHandler)
+	// prevent untoward access to the raw data.db file...there should be a better way
+	http.HandleFunc("/server/data.db", func(w http.ResponseWriter, r *http.Request) { http.Error(w, "not allowed", http.StatusUnauthorized) })
 
-	certPath := "/etc/letsencrypt/live/repdom.umassmed.io/cert.pem"
+	certPath := "/etc/letsencrypt/live/repdom.umassmed.io/fullchain.pem"
 	privKeyPath := "/etc/letsencrypt/live/repdom.umassmed.io/privkey.pem"
-
-	// loadPages()
 
 	// open a simple log file
 	logFile, err := os.OpenFile("myLog.txt", os.O_APPEND|os.O_WRONLY, 0600)
