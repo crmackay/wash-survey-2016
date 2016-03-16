@@ -37,8 +37,13 @@ function showModal(m) {
     currModel.scrollTop = 0;
 }
 function renderRowLabels(r) {
-    var newObj = JSON.parse(r);
     var result = "<tr>";
+    for (var i = 0; i < formObjects.length; i++) {
+        result += "<th>";
+        result += formObjects[i];
+        result += "</th>";
+    }
+    var newObj = JSON.parse(r);
     for (var i = 0; i < newObj.data.length; i++) {
         result += "<th>";
         result += newObj.data[i].key.toString();

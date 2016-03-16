@@ -73,8 +73,14 @@ function showModal(m){
 }
 
 function renderRowLabels(r):string {
-    let newObj = JSON.parse(r)
     let result = "<tr>"
+    for (let i = 0; i < formObjects.length; i++){
+        result += "<th>"
+        result += formObjects[i]
+        result += "</th>"
+    }
+
+    let newObj = JSON.parse(r)
     for (let i = 0 ; i< newObj.data.length; i++){
         result += "<th>"
         result += newObj.data[i].key.toString()

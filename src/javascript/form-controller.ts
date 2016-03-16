@@ -1,4 +1,4 @@
-let formObjects:string[] = ["surveyid", "surveyor-name", "batey", "house-number", "q1", "q1-other", "q1a", "q1a-other", "q2", "q2-mins", "q3", "q4", "q5", "q5-other", "q6", "q6-other", "q7", "q8", "q8-number", "q9", "q9-other", "q10", "q10a", "comments"]
+let formObjects:string[] = ["surveyid", "surveyor-name", "batey", "house-number", "q1", "q1-other", "q1a", "q1a-other", "q2", "q2-mins", "q3", "q4", "q5", "q5-other", "q6", "q6-other", "q7", "q8", "q8-number", "q9", "q9-other", "q10", "q10a", "q10a-other", "comments"]
 
 // for every name in formObjects, get it value from doc.[...]form.elements[""].value
     // this works except for checked boxs?
@@ -71,7 +71,7 @@ function saveEntryForm(e){
 let controlledForm = document.getElementById("entry-form") as HTMLFormElement
 
 let formElems = controlledForm.elements
-// 
+//
 // for (let i =0; i< formElems.length; i++) {
 //     let elem = formElems[formObjects[i]]
 //     console.log(elem)
