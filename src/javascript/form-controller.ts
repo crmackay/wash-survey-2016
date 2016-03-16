@@ -27,14 +27,12 @@ function gatherEntryFormData(form): row {
 
     for (let i = 0; i < formObjects.length; i++ ) {
         let currKey = formObjects[i]
-        console.log(currKey)
 
         if (currKey == "q5") {
             var newDatum = new datum(currKey.toString(), getCheckboxValue(form.elements[currKey]))
             data.push(newDatum)
 
         } else {
-            console.log(currKey)
             var newDatum = new datum(currKey.toString(), form.elements[currKey].value.toString())
             data.push(newDatum)
 

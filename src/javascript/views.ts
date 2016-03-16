@@ -79,13 +79,6 @@ function renderRowLabels(r):string {
         result += formObjects[i]
         result += "</th>"
     }
-
-    let newObj = JSON.parse(r)
-    for (let i = 0 ; i< newObj.data.length; i++){
-        result += "<th>"
-        result += newObj.data[i].key.toString()
-        result += "</th>"
-    }
     return result+"</tr>"
 }
 

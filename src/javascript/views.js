@@ -43,12 +43,6 @@ function renderRowLabels(r) {
         result += formObjects[i];
         result += "</th>";
     }
-    var newObj = JSON.parse(r);
-    for (var i = 0; i < newObj.data.length; i++) {
-        result += "<th>";
-        result += newObj.data[i].key.toString();
-        result += "</th>";
-    }
     return result + "</tr>";
 }
 function renderSavedRow(r) {
