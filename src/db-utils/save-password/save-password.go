@@ -1,3 +1,5 @@
+// a small command-line utility to save a password to the app database file in a secure way
+
 package main
 
 import (
@@ -39,8 +41,8 @@ func storePassword(u string, p string) error {
 
 	err = db.Update(
 		func(tx *bolt.Tx) error {
-			b, err := tx.CreateBucketIfNotExists([]byte("users"))
-			if err != nil {
+			b, errr := tx.CreateBucketIfNotExists([]byte("users"))
+			if errr != nil {
 				return err
 			}
 			err = b.Put([]byte(u), []byte(pHashed))

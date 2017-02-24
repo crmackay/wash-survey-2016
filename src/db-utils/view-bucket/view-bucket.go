@@ -1,3 +1,6 @@
+// a small command-line utility to save a password to extract a bucket from the boldDB database
+// and print it to stdin
+
 package main
 
 import (
@@ -45,4 +48,7 @@ func printBucket(b string) {
 			return nil
 		},
 	)
+	if err != nil {
+		fmt.Println(err)
+	}
 }

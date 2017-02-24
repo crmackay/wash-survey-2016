@@ -1,3 +1,4 @@
+//
 function clearData(savedData) {
     for (let i = 0; i < savedData.length; i++){
         localStorage.removeItem(savedData[i])
@@ -6,6 +7,7 @@ function clearData(savedData) {
 
 }
 
+// handles the login logic then starts data upload
 function login (){
 
     let firstRequest = new XMLHttpRequest
@@ -39,6 +41,7 @@ function login (){
     firstRequest.send(null)
 }
 
+// handles the uploading data
 function uploadData() {
     let uploadRequest = new XMLHttpRequest
     uploadRequest.open("POST", "/save")
@@ -74,11 +77,12 @@ function uploadData() {
     uploadRequest.send(resultString)
 }
 
+// the handler triggered by pressing the upload button
 function handleUpload(){
     if (!navigator.onLine){
         alert("you are not online right now\n\nTry connecting to the internet and trying again.")
         return
     }
-        
+
     login()
 }
